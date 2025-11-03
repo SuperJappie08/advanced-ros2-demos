@@ -11,7 +11,16 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        linter: [xmllint, copyright, pep257, flake8]
+        package: [async_service_server_cpp]
+        linter:
+          - xmllint
+          - copyright
+          - pep257
+          - flake8
+          - uncrustify
+          - cppcheck
+          - cpplint
+          - lint_cmake
         ros_distro: [humble, jazzy, kilted, rolling]
         include:
           - ros_distro: humble
@@ -22,6 +31,9 @@ jobs:
             ubuntu: noble
           - ros_distro: rolling
             ubuntu: noble
+        exclude:
+          - ros_distro: humble
+            linter: uncrustify
 
     steps:
       - name: Checkout launch_ros2_control
@@ -31,7 +43,9 @@ jobs:
         with:
           linter: ${{ matrix.linter }}
           distribution: ${{ matrix.ros_distro }}
-          package-name: launch_ros2_control
+          package-name: ${{ matrix.package }}
+        env:
+          AMENT_CPPCHECK_ALLOW_SLOW_VERSIONS: true
 
   build_and_test:
     runs-on: ubuntu-latest
@@ -57,5 +71,6 @@ jobs:
       - name: Build and run tests
         uses: ros-tooling/action-ros-ci@v0.4
         with:
-          package-name: launch_ros2_control
+          package-name: |
+            async_service_server_cpp
           target-ros2-distro: ${{ matrix.ros_distro }}

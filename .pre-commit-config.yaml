@@ -1,0 +1,114 @@
+# To use:
+#
+#     pre-commit run -a
+#
+# Or:
+#
+#     pre-commit install  # (runs every time you commit in git)
+#
+# To update this file:
+#
+#     pre-commit autoupdate
+#
+# See https://github.com/pre-commit/pre-commit
+
+default_install_hook_types:
+  - pre-commit
+  - commit-msg
+default_stages: [ pre-commit ]
+
+repos:
+  # Standard hooks
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: check-added-large-files
+      - id: check-ast
+      - id: check-case-conflict
+      - id: check-docstring-first
+      - id: check-merge-conflict
+      - id: check-symlinks
+      - id: check-xml
+      - id: check-yaml
+        args: ["--allow-multiple-documents"]
+      - id: debug-statements
+      - id: end-of-file-fixer
+      - id: mixed-line-ending
+      - id: trailing-whitespace
+        exclude_types: [rst]
+      - id: fix-byte-order-marker
+
+  - repo: https://github.com/codespell-project/codespell
+    rev: v2.4.1
+    hooks:
+      - id: codespell
+
+  # Python hooks
+  - repo: https://github.com/asottile/pyupgrade
+    rev: v3.21.0
+    hooks:
+      - id: pyupgrade
+        args: [--py36-plus]
+
+  # ament_lint
+  - repo: local
+    hooks:
+      - id: ament_flake8
+        name: ament_flake8
+        description: Check if all files adhere to ament_flake8.
+        entry: ament_flake8
+        types: [python]
+        language: system
+      - id: ament_pep257
+        name: ament_pep257
+        description: Check if all files adhere to ament_pep257.
+        entry: ament_pep257
+        types: [python]
+        language: system
+      - id: ament_xmllint
+        name: ament_xmllint
+        description: Check if all files adhere to ament_xmllint
+        entry: ament_xmllint
+        files: \.(xml|xacro|urdf|ros2_control)$
+        language: system
+      - id: ament_cppcheck
+        name: ament_cppcheck
+        description: Check if all files adhere to ament_cppcheck
+        entry: env AMENT_CPPCHECK_ALLOW_SLOW_VERSIONS=1 ament_cppcheck
+        types_or: [c, c++]
+        language: system
+      - id: ament_cpplint
+        name: ament_cpplint
+        description: Check if all files adhere to ament_cppcheck
+        entry: ament_cpplint
+        types_or: [c, c++]
+        language: system
+      - id: ament_lint_cmake
+        name: ament_lint_cmake
+        description: Check if all files adhere to ament_lint_cmake
+        entry: ament_lint_cmake
+        types: [cmake]
+        language: system
+      - id: ament_copyright
+        name: ament_copyright
+        description: Check if copyright notice is available in all files.
+        entry: ament_copyright
+        files: \.(c|cc|cpp|cxx|h|hh|hpp|hxx|cmake|py)$
+        exclude: (^\.|^_|(setup\.py|package\.xml)$)
+        language: system
+
+  - repo: https://github.com/jorisroovers/gitlint
+    rev: v0.19.1
+    hooks:
+      - id: gitlint
+        stages: [commit-msg]
+
+  - repo: https://github.com/python-jsonschema/check-jsonschema
+    rev: 0.34.1
+    hooks:
+      - id: check-github-workflows
+        args: ["--verbose"]
+      - id: check-github-actions
+        args: ["--verbose"]
+      - id: check-dependabot
+        args: ["--verbose"]

@@ -1,0 +1,61 @@
+name: CI Advanced ROS 2 Demos
+
+on: [push, pull_request]
+
+jobs:
+  ament_lint:
+    runs-on: ubuntu-latest
+    container:
+      image: rostooling/setup-ros-docker:ubuntu-${{ matrix.ubuntu }}-ros-${{ matrix.ros_distro }}-ros-base-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        linter: [xmllint, copyright, pep257, flake8]
+        ros_distro: [humble, jazzy, kilted, rolling]
+        include:
+          - ros_distro: humble
+            ubuntu: jammy
+          - ros_distro: jazzy
+            ubuntu: noble
+          - ros_distro: kilted
+            ubuntu: noble
+          - ros_distro: rolling
+            ubuntu: noble
+
+    steps:
+      - name: Checkout launch_ros2_control
+        uses: actions/checkout@v4
+      - name: Run Linter
+        uses: ros-tooling/action-ros-lint@v0.1
+        with:
+          linter: ${{ matrix.linter }}
+          distribution: ${{ matrix.ros_distro }}
+          package-name: launch_ros2_control
+
+  build_and_test:
+    runs-on: ubuntu-latest
+    container:
+      image: rostooling/setup-ros-docker:ubuntu-${{ matrix.ubuntu }}-ros-${{ matrix.ros_distro }}-ros-base-latest
+
+    needs: ament_lint
+
+    strategy:
+      matrix:
+        ros_distro: [humble, jazzy, kilted, rolling]
+        include:
+          - ros_distro: humble
+            ubuntu: jammy
+          - ros_distro: jazzy
+            ubuntu: noble
+          - ros_distro: kilted
+            ubuntu: noble
+          - ros_distro: rolling
+            ubuntu: noble
+
+    steps:
+      - name: Build and run tests
+        uses: ros-tooling/action-ros-ci@v0.4
+        with:
+          package-name: launch_ros2_control
+          target-ros2-distro: ${{ matrix.ros_distro }}

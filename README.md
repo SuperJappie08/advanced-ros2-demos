@@ -6,6 +6,10 @@
 > It explains some undocumented functionalities, however some of these are **undocumented for a good reason**.
 > Often because of the included caviats and footguns.
 
+Each ROS 2 package consists of its own self-contained demonstration(s) with its respective `README.md` showing how things work.
+
+In short:
+ - [`deferred_service_response_cpp`](deferred_service_response_cpp/README.md): `rclcpp` allows to defer sending of the service response to a later moment, allowing the executor to continue.
 
 # Developing
 This repository uses pre-commit.

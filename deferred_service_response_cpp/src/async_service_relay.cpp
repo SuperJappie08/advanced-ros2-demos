@@ -15,7 +15,7 @@
 #include <functional>
 #include <memory>
 
-#include "async_service_server_cpp/async_service_relay.hpp"
+#include "deferred_service_response_cpp/async_service_relay.hpp"
 
 #include "rclcpp/logging.hpp"
 #include "rclcpp_components/register_node_macro.hpp"
@@ -24,7 +24,7 @@
 
 using namespace std::placeholders;
 
-namespace async_service_server_cpp
+namespace deferred_service_response_cpp
 {
 
 AsyncServiceRelay::AsyncServiceRelay(const rclcpp::NodeOptions & options)
@@ -57,6 +57,6 @@ void AsyncServiceRelay::service_callback(
   client_->async_send_request(req, client_callback);
 }
 
-}  // namespace async_service_server_cpp
+}  // namespace deferred_service_response_cpp
 
-RCLCPP_COMPONENTS_REGISTER_NODE(async_service_server_cpp::AsyncServiceRelay)
+RCLCPP_COMPONENTS_REGISTER_NODE(deferred_service_response_cpp::AsyncServiceRelay)

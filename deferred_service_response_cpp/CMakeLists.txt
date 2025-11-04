@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.20)
-project(async_service_server_cpp)
+project(deferred_service_response_cpp)
 
 # Default to C++17
 if(NOT CMAKE_CXX_STANDARD)
@@ -22,13 +22,13 @@ include_directories(include)
 add_library(async_service_relay_component SHARED
   src/async_service_relay.cpp)
 target_compile_definitions(async_service_relay_component
-  PRIVATE "ASYNC_SERVICE_SERVER_CPP_BUILDING_DLL")
+  PRIVATE "DEFERRED_SERVICE_RESPONSE_CPP_BUILDING_DLL")
 target_link_libraries(async_service_relay_component PUBLIC
   rclcpp::rclcpp
   rclcpp_components::component
   ${example_interfaces_TARGETS})
 rclcpp_components_register_node(async_service_relay_component
-  PLUGIN "async_service_server_cpp::AsyncServiceRelay"
+  PLUGIN "deferred_service_response_cpp::AsyncServiceRelay"
   EXECUTABLE async_service_relay_node)
 
 # TODO(SuperJappie08): Look into ros2/demos:composition windows compatibility

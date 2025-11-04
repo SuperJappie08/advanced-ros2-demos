@@ -12,22 +12,22 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#ifndef ASYNC_SERVICE_SERVER_CPP__ASYNC_SERVICE_RELAY_HPP_
-#define ASYNC_SERVICE_SERVER_CPP__ASYNC_SERVICE_RELAY_HPP_
+#ifndef DEFERRED_SERVICE_RESPONSE_CPP__ASYNC_SERVICE_RELAY_HPP_
+#define DEFERRED_SERVICE_RESPONSE_CPP__ASYNC_SERVICE_RELAY_HPP_
 
 #include <memory>
 
-#include "async_service_server_cpp/visibility_control.hpp"
+#include "deferred_service_response_cpp/visibility_control.hpp"
 
 #include "example_interfaces/srv/add_two_ints.hpp"
 #include "rclcpp/node.hpp"
 
-namespace async_service_server_cpp
+namespace deferred_service_response_cpp
 {
 
 class AsyncServiceRelay : public rclcpp::Node {
 public:
-  ASYNC_SERVICE_SERVER_CPP_PUBLIC
+  DEFERRED_SERVICE_RESPONSE_CPP_PUBLIC
   explicit AsyncServiceRelay(const rclcpp::NodeOptions & options);
 
 private:
@@ -39,6 +39,6 @@ private:
     const example_interfaces::srv::AddTwoInts::Request::SharedPtr req) const;
 };
 
-}  // namespace async_service_server_cpp
+}  // namespace deferred_service_response_cpp
 
-#endif  // ASYNC_SERVICE_SERVER_CPP__ASYNC_SERVICE_RELAY_HPP_
+#endif  // DEFERRED_SERVICE_RESPONSE_CPP__ASYNC_SERVICE_RELAY_HPP_

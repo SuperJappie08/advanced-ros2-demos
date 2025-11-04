@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
-  <name>async_service_server_cpp</name>
+  <name>deferred_service_response_cpp</name>
   <version>0.0.0</version>
-  <description>Async service servers in C++ without multithreading</description>
+  <description>Deferred service responses in C++ without multithreading, allows for async service providers</description>
   <maintainer email="36795178+SuperJappie08@users.noreply.github.com">SuperJappie08</maintainer>
   <license>Apache License 2.0</license>
 

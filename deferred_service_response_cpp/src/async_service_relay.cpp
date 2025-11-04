@@ -43,22 +43,22 @@ AsyncServiceRelay::AsyncServiceRelay(const rclcpp::NodeOptions & options)
 // In this situation it is easiest to attach a callback to our service client,
 // in which the response of this service callback will be send.
 void AsyncServiceRelay::service_callback(
-  const std::shared_ptr<rmw_request_id_t> header,
+  const std::shared_ptr<rmw_request_id_t> req_id,
   const example_interfaces::srv::AddTwoInts::Request::SharedPtr req) const
 {
   RCLCPP_INFO(get_logger(), "Deferring service callback %ld",
-              header->sequence_number);
+              req_id->sequence_number);
 
   using ServiceResponseFuture =
     rclcpp::Client<example_interfaces::srv::AddTwoInts>::SharedFuture;
-  auto client_callback = [this, header](ServiceResponseFuture future) {
+  auto client_callback = [this, req_id](ServiceResponseFuture future) {
       auto response = future.get();
       RCLCPP_INFO(this->get_logger(), "Response received for %ld",
-                header->sequence_number);
+                req_id->sequence_number);
 
       // NOTE: We are responsible for sending a response, since this uses a deferred response.
       //       This will always happen as long as the other service eventually responds.
-      service_->send_response(*header, *response);
+      service_->send_response(*req_id, *response);
     };
 
   client_->async_send_request(req, client_callback);

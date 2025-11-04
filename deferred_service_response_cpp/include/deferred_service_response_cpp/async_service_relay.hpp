@@ -39,12 +39,14 @@ private:
   // The service callback needs to be of one of the following types:
   //  - `SharedPtrDeferResponseCallback`
   //  - `SharedPtrDeferResponseCallbackWithServiceHandle`
-  // This means it should accept the request header and the request itself.
+  // This means it should at least accept a request id and the request itself.
   //
   // If the callback would also accept a response, then it is treated as
   // a normal non-deferred service callback.
+  //
+  // NOTE: The request id is sometimes referred to as the request header.
   void service_callback(
-    const std::shared_ptr<rmw_request_id_t> header,
+    const std::shared_ptr<rmw_request_id_t> req_id,
     const example_interfaces::srv::AddTwoInts::Request::SharedPtr req) const;
 };
 

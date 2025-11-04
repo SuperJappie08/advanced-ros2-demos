@@ -30,6 +30,8 @@ namespace deferred_service_response_cpp
 AsyncServiceRelay::AsyncServiceRelay(const rclcpp::NodeOptions & options)
 : Node("async_service_relay", options)
 {
+  RCLCPP_INFO(get_logger(), "Starting the service relay");
+
   client_ =
     this->create_client<example_interfaces::srv::AddTwoInts>("add_two_ints");
   service_ = this->create_service<example_interfaces::srv::AddTwoInts>(
@@ -37,6 +39,9 @@ AsyncServiceRelay::AsyncServiceRelay(const rclcpp::NodeOptions & options)
       std::bind(&AsyncServiceRelay::service_callback, this, _1, _2));
 }
 
+// The deferred response callback.
+// In this situation it is easiest to attach a callback to our service client,
+// in which the response of this service callback will be send.
 void AsyncServiceRelay::service_callback(
   const std::shared_ptr<rmw_request_id_t> header,
   const example_interfaces::srv::AddTwoInts::Request::SharedPtr req) const
@@ -51,6 +56,8 @@ void AsyncServiceRelay::service_callback(
       RCLCPP_INFO(this->get_logger(), "Response received for %ld",
                 header->sequence_number);
 
+      // NOTE: We are responsible for sending a response, since this uses a deferred response.
+      //       This will always happen as long as the other service eventually responds.
       service_->send_response(*header, *response);
     };
 

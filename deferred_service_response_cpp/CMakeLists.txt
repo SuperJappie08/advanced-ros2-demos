@@ -40,6 +40,15 @@ install(TARGETS
   LIBRARY DESTINATION lib
   RUNTIME DESTINATION bin)
 
+ament_export_dependencies(example_interfaces)
+ament_export_dependencies(rclcpp)
+ament_export_dependencies(rclcpp_components)
+
+ament_export_include_directories("include/${PROJECT_NAME}")
+install(DIRECTORY include/ DESTINATION include/${PROJECT_NAME})
+
+ament_export_libraries(async_service_relay_component)
+
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
   # the following line skips the linter which checks for copyrights

@@ -13,6 +13,7 @@ endif()
 
 # find dependencies
 find_package(ament_cmake REQUIRED)
+find_package(advanced_demo_interfaces REQUIRED)
 find_package(example_interfaces REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(rclcpp_components REQUIRED)
@@ -29,17 +30,32 @@ target_link_libraries(async_service_relay_component PUBLIC
   ${example_interfaces_TARGETS})
 rclcpp_components_register_node(async_service_relay_component
   PLUGIN "deferred_service_response_cpp::AsyncServiceRelay"
-  EXECUTABLE async_service_relay_node)
+  EXECUTABLE async_service_relay)
+
+add_library(add_three_ints_server_component SHARED
+  src/add_three_ints_server.cpp)
+target_compile_definitions(add_three_ints_server_component
+  PRIVATE "DEFERRED_SERVICE_RESPONSE_CPP_BUILDING_DLL")
+target_link_libraries(add_three_ints_server_component PUBLIC
+  rclcpp::rclcpp
+  rclcpp_components::component
+  ${example_interfaces_TARGETS}
+  ${advanced_demo_interfaces_TARGETS})
+rclcpp_components_register_node(add_three_ints_server_component
+  PLUGIN "deferred_service_response_cpp::AddThreeIntsServer"
+  EXECUTABLE add_three_ints_server)
 
 # TODO(SuperJappie08): Look into ros2/demos:composition windows compatibility
 # https://github.com/ros2/demos/blob/35a91bde49136adf677b27f16335a09c42e7d244/composition/CMakeLists.txt#L82-L87
 
 install(TARGETS
   async_service_relay_component
+  add_three_ints_server_component
   ARCHIVE DESTINATION lib
   LIBRARY DESTINATION lib
   RUNTIME DESTINATION bin)
 
+ament_export_dependencies(advanced_demo_interfaces)
 ament_export_dependencies(example_interfaces)
 ament_export_dependencies(rclcpp)
 ament_export_dependencies(rclcpp_components)
@@ -47,7 +63,16 @@ ament_export_dependencies(rclcpp_components)
 ament_export_include_directories("include/${PROJECT_NAME}")
 install(DIRECTORY include/ DESTINATION include/${PROJECT_NAME})
 
-ament_export_libraries(async_service_relay_component)
+ament_export_libraries(
+  async_service_relay_component
+  add_three_ints_server_component
+)
+
+# Install launch files.
+install(DIRECTORY
+  launch
+  DESTINATION share/${PROJECT_NAME}/
+)
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)

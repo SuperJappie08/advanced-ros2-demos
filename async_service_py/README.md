@@ -19,3 +19,11 @@ A solution to this would be an async service server callback.
 
 An relay example has been made `async_service_relay`.
 Which provides the a service `~/add_two_ints`, which relays the call to the `add_two_ints` service.
+
+## Add Three Ints Server
+This node calls `add_two_ints` twice (sequentially), to implement an `add_three_ints` service.
+This would be impossible using a `sync` service handling callback and the `SingleThreadedExecutor`, since the executor needs to handle the response, but it is being blocked by the service callback.
+
+A solution to this would be an async service server callback.
+An add three ints server has been made (`add_three_ints_server`)
+Which provides the a service `add_three_ints`, which delegates adding to a `add_two_ints` service.

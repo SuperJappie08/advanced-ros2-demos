@@ -9,13 +9,22 @@
 
   <buildtool_depend>ament_cmake</buildtool_depend>
 
+  <build_depend>advanced_demo_interfaces</build_depend>
   <build_depend>example_interfaces</build_depend>
   <build_depend>rclcpp</build_depend>
   <build_depend>rclcpp_components</build_depend>
 
+  <exec_depend>advanced_demo_interfaces</exec_depend>
   <exec_depend>example_interfaces</exec_depend>
   <exec_depend>rclcpp</exec_depend>
   <exec_depend>rclcpp_components</exec_depend>
+
+  <exec_depend>launch</exec_depend>
+  <exec_depend>launch_ros</exec_depend>
+
+  <!-- FIXME: Temporary until add_two_ints_delay_server has been made -->
+  <exec_depend>composition</exec_depend>
+  <exec_depend>demo_nodes_cpp</exec_depend>
 
   <test_depend>ament_lint_auto</test_depend>
   <test_depend>ament_lint_common</test_depend>

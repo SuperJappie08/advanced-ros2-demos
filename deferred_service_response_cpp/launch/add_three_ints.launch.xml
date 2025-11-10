@@ -1,0 +1,4 @@
+<launch>
+  <node pkg="demo_nodes_cpp" exec="add_two_ints_server"/>
+  <node pkg="deferred_service_response_cpp" exec="add_three_ints_server"/>
+</launch>

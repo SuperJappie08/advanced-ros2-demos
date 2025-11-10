@@ -1,0 +1,16 @@
+<launch>
+  <node_container
+    pkg="rclcpp_components" exec="component_container"
+    name="add_ints_container" namespace="$(var ros-namespace '')"
+  >
+    <composable_node
+      pkg="composition" plugin="composition::Server"
+      name="add_two_ints_server"
+    />
+
+    <composable_node
+      pkg="deferred_service_response_cpp" plugin="deferred_service_response_cpp::AddThreeIntsServer"
+      name="add_three_ints_server"
+    />
+  </node_container>
+</launch>

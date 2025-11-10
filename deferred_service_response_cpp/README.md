@@ -18,5 +18,5 @@ When using normal service callback it is impossible to call another service from
 
 A solution to this would be a deferred service response.
 
-An relay example has been made <span title="Available as component and node (async_service_relay_node)">`async_service_relay`</span>.
+An relay example has been made <span title="Available as component and node">`async_service_relay`</span>.
 Which provides the a service `~/add_two_ints`, which relays the call to the `add_two_ints` service.

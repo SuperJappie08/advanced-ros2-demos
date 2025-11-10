@@ -25,7 +25,8 @@ setup(
     },
     entry_points={
         'console_scripts': [
-            f'async_service_relay = {package_name}.async_service_relay:main'
+            f'async_service_relay = {package_name}.async_service_relay:main',
+            f'add_three_ints_server = {package_name}.add_three_ints_server:main',
         ],
     },
 )

@@ -50,12 +50,15 @@ class AddThreeIntsServer(Node):
                                        res: AddThreeInts.Response,
                                        ) -> AddThreeInts.Response:
         # Adding three ints, will be delegated to an add two ints server call twice.
+        self.get_logger().info(f'Processing request: {{ a: {req.a}, b: {req.b}, c: {req.c} }}')
 
         req1 = AddTwoInts.Request(a=req.a, b=req.b)
         res1 = await self._add_two_ints_client.call_async(req1)  # type: AddTwoInts.Response
+        self.get_logger().info(f"Received 'a + b = {res1.sum}'")
 
         req2 = AddTwoInts.Request(a=res1.sum, b=req.c)
         res2 = await self._add_two_ints_client.call_async(req2)  # type: AddTwoInts.Response
+        self.get_logger().info(f"Received '(a + b) + c = {res2.sum}'")
 
         res.sum = res2.sum
         return res

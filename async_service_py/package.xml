@@ -11,6 +11,13 @@
   <depend>example_interfaces</depend>
   <depend>advanced_demo_interfaces</depend>
 
+  <exec_depend>launch</exec_depend>
+  <exec_depend>launch_ros</exec_depend>
+
+  <!-- FIXME: Temporary until add_two_ints_delay_server has been made -->
+  <exec_depend>composition</exec_depend>
+  <exec_depend>demo_nodes_cpp</exec_depend>
+
   <test_depend>ament_copyright</test_depend>
   <test_depend>ament_flake8</test_depend>
   <test_depend>ament_pep257</test_depend>

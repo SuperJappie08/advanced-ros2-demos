@@ -11,7 +11,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        package: [deferred_service_response_cpp]
+        package:
+          - deferred_service_response_cpp
+          - async_service_py
         linter:
           - xmllint
           - copyright
@@ -73,6 +75,7 @@ jobs:
         with:
           package-name: |
             deferred_service_response_cpp
+            async_service_py
           target-ros2-distro: ${{ matrix.ros_distro }}
           # FIXME(SuperJappie08): Temporarily disable tests on humble, since uncrustify version differs
           skip-tests: ${{ matrix.ros_distro == 'humble' }}

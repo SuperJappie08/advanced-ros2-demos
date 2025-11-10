@@ -10,6 +10,9 @@
 > A client will hang if it is explicitly spins until the response future is complete.
 > When a client does not wait for the response, it will allocate memory for the response as documented in [`rclcpp::Client::async_send_request`](https://docs.ros.org/en/rolling/p/rclcpp/generated/classrclcpp_1_1Client.html#_CPPv4N6rclcpp6Client18async_send_requestE13SharedRequest)
 
+> [!WARNING]
+> The section above is incomplete, in short: A deferred service can also be executes multiple times simultaneously.
+
 ## Async Service Relay
 When using normal service callback it is impossible to call another service from it when using the `SingleThreadedExecutor`, since the executor needs to handle the response, but it is being blocked by the service callback.
 

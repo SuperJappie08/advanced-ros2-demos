@@ -10,6 +10,7 @@ Each ROS 2 package consists of its own self-contained demonstration(s) with its 
 
 In short:
  - [`deferred_service_response_cpp`](deferred_service_response_cpp/README.md): `rclcpp` allows to defer sending of the service response to a later moment, allowing the executor to continue.
+ - [`async_service_py`](async_service_py/README.md): `rclpy` allows to async callbacks in service servers (and most other callbacks) to enable await, allowing the executor to continue.
 
 # Developing
 This repository uses pre-commit.

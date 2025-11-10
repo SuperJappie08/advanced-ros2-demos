@@ -24,7 +24,9 @@ from rclpy.node import Node
 class AsyncServiceRelay(Node):
 
     def __init__(self) -> None:
-        super().__init__('service_relay')
+        super().__init__('async_service_relay')
+        # The client and server need to be able to execute simultaneously.
+        # As a result some callback group setup is required, (even on the SingleThreadedExecutor)
         self._callback_group = ReentrantCallbackGroup()
 
         self._client = self.create_client(

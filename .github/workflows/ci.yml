@@ -3,7 +3,8 @@ name: CI Advanced ROS 2 Demos
 on: [push, pull_request]
 
 jobs:
-  ament_lint:
+  ament_lint_generic:
+    name: Ament Lint (Generic)
     runs-on: ubuntu-latest
     container:
       image: rostooling/setup-ros-docker:ubuntu-${{ matrix.ubuntu }}-ros-${{ matrix.ros_distro }}-ros-base-latest
@@ -19,6 +20,39 @@ jobs:
           - copyright
           - pep257
           - flake8
+        ros_distro: [humble, jazzy, kilted, rolling]
+        include:
+          - ros_distro: humble
+            ubuntu: jammy
+          - ros_distro: jazzy
+            ubuntu: noble
+          - ros_distro: kilted
+            ubuntu: noble
+          - ros_distro: rolling
+            ubuntu: noble
+
+    steps:
+      - name: Checkout (advanced-ros2-demos)
+        uses: actions/checkout@v4
+      - name: Run Linter
+        uses: ros-tooling/action-ros-lint@v0.1
+        with:
+          linter: ${{ matrix.linter }}
+          distribution: ${{ matrix.ros_distro }}
+          package-name: ${{ matrix.package }}
+
+  ament_lint_cpp:
+    name: Ament Lint (C++)
+    runs-on: ubuntu-latest
+    container:
+      image: rostooling/setup-ros-docker:ubuntu-${{ matrix.ubuntu }}-ros-${{ matrix.ros_distro }}-ros-base-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        package:
+          - deferred_service_response_cpp
+        linter:
           - uncrustify
           - cppcheck
           - cpplint
@@ -38,7 +72,7 @@ jobs:
             linter: uncrustify
 
     steps:
-      - name: Checkout launch_ros2_control
+      - name: Checkout (advanced-ros2-demos)
         uses: actions/checkout@v4
       - name: Run Linter
         uses: ros-tooling/action-ros-lint@v0.1
@@ -54,7 +88,9 @@ jobs:
     container:
       image: rostooling/setup-ros-docker:ubuntu-${{ matrix.ubuntu }}-ros-${{ matrix.ros_distro }}-ros-base-latest
 
-    needs: ament_lint
+    needs:
+      - ament_lint_generic
+      - ament_lint_cpp
 
     strategy:
       matrix:

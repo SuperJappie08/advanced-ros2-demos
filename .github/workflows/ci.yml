@@ -13,8 +13,9 @@ jobs:
       fail-fast: false
       matrix:
         package:
-          - deferred_service_response_cpp
+          - advanced_demo_interfaces
           - async_service_py
+          - deferred_service_response_cpp
         linter:
           - xmllint
           - copyright
@@ -110,8 +111,9 @@ jobs:
         uses: ros-tooling/action-ros-ci@v0.4
         with:
           package-name: |
-            deferred_service_response_cpp
+            advanced_demo_interfaces
             async_service_py
+            deferred_service_response_cpp
           target-ros2-distro: ${{ matrix.ros_distro }}
           # FIXME(SuperJappie08): Temporarily disable tests on humble, since uncrustify version differs
           skip-tests: ${{ matrix.ros_distro == 'humble' }}

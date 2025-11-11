@@ -4,7 +4,7 @@
 > [!CAUTION]
 > This repo is intended for **advanced** ROS2 users.
 > It explains some undocumented functionalities, however some of these are **undocumented for a good reason**.
-> Often because of the included caviats and footguns.
+> Often because of the included caveats and footguns.
 
 Each ROS 2 package consists of its own self-contained demonstration(s) with its respective `README.md` showing how things work.
 

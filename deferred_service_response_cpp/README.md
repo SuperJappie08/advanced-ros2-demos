@@ -3,11 +3,11 @@
 
 > [!CAUTION]
 > Using deferred service responses allows delaying a service response, which allows the callback to be shorter.
-> This also allows for other work to be processed in the mean time by the executor, (such as handling an incoming service call response).
+> This also allows for other work to be processed by the executor in the meantime, (such as handling an incoming service call response).
 >
-> The caviat is that **YOU ARE RESPONSIBLE FOR RESPONDING**.
+> The caveat is that **YOU ARE RESPONSIBLE FOR RESPONDING**.
 > When not responding can lead to hanging or memory-leaking clients.
-> A client will hang if it is explicitly spins until the response future is complete.
+> A client will hang if it is explicitly spinning until the response future is complete.
 > When a client does not wait for the response, it will allocate memory for the response as documented in [`rclcpp::Client::async_send_request`](https://docs.ros.org/en/rolling/p/rclcpp/generated/classrclcpp_1_1Client.html#_CPPv4N6rclcpp6Client18async_send_requestE13SharedRequest)
 
 > [!WARNING]
@@ -18,8 +18,8 @@ When using normal service callback it is impossible to call another service from
 
 A solution to this would be a deferred service response.
 
-An relay example has been made <span title="Available as component and node">`async_service_relay`</span>.
-Which provides the a service `~/add_two_ints`, which relays the call to the `add_two_ints` service.
+A relay example has been made <span title="Available as component and node">`async_service_relay`</span>.
+Which provides a service `~/add_two_ints`, which relays the call to the `add_two_ints` service.
 
 <details>
 <summary><b>Running this example (Normal)</b></summary>
@@ -97,7 +97,7 @@ This would be impossible using a `sync` service handling callback and the `Singl
 
 A solution to this would be an async service server callback.
 An add three ints server has been made (<span title="Available as component and node">`add_three_ints_server`</span>.)
-Which provides the a service `add_three_ints`, which delegates adding to a `add_two_ints` service.
+Which provides the `add_three_ints` service, which delegates adding to a `add_two_ints` service.
 
 <details>
 <summary><b>Running this example (Normal)</b></summary>

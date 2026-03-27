@@ -16,6 +16,7 @@ jobs:
           - advanced_demo_interfaces
           - async_service_py
           - deferred_service_response_cpp
+          - dynamic_parameter_py
         linter:
           - xmllint
           - copyright
@@ -114,6 +115,7 @@ jobs:
             advanced_demo_interfaces
             async_service_py
             deferred_service_response_cpp
+            dynamic_parameter_py
           target-ros2-distro: ${{ matrix.ros_distro }}
           # FIXME(SuperJappie08): Temporarily disable tests on humble, since uncrustify version differs
           skip-tests: ${{ matrix.ros_distro == 'humble' }}

@@ -84,7 +84,7 @@ class DynamicParameterTalker(Node):
         self._publish_timer = self.create_timer(1.0, self.timer_callback)
 
     def post_set_parameters_callback(
-        self, parameter_list: Sequence[Parameter[Any]]
+        self, parameter_list: Sequence[Parameter]
     ) -> None:
         """
         React to valid parameter changes.

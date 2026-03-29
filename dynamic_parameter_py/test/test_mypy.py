@@ -12,16 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from importlib.metadata import version
-
 from ament_mypy.main import main
 import pytest
 
 
-@pytest.mark.skipif(
-    int(version('rclpy').split('.')[0]) < 8,
-    reason='Parameter[TYPE] generic only available from Kilted and up'
-)
 @pytest.mark.mypy
 @pytest.mark.linter
 def test_mypy() -> None:

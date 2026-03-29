@@ -25,7 +25,8 @@ setup(
     },
     entry_points={
         'console_scripts': [
-            'dynamic_parameter_talker = dynamic_parameter_py.dynamic_parameter_talker:main'
+            f'dynamic_parameter_talker = {package_name}.dynamic_parameter_talker:main',
+            f'lenient_multiplier = {package_name}.lenient_multiplier:main',
         ],
     },
 )

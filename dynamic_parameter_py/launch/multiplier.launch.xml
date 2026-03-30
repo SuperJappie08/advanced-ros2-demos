@@ -1,0 +1,38 @@
+<launch>
+  <arg name="mode" default="lenient"
+    description="The mode in which to start the lenient_multiplier node">
+    <choice value="lenient" />
+    <choice value="strict" />
+  </arg>
+
+  <arg name="start_number_generator" default="True"
+    description="Whether to start the number_generator node" />
+
+  <group if="$(var start_number_generator)">
+    <!-- Number Generator Arguments -->
+    <arg name="frequency" default="1.0"
+      description="The frequency of the Number Generator. (Only available when 'start_number_generator' == True)" />
+    <arg name="initial_number" default="0.0"
+      description="The initial number of the Number Generator. (Only available when 'start_number_generator' == True)" />
+    <arg name="number_increment" default="0.1"
+      description="The amount the number increases each iteration of the Number Generator. (Only available when 'start_number_generator' == True)" />
+
+    <log message="Starting the Number Generator from $(var initial_number) @ $(var frequency) Hz" />
+
+    <node pkg="dynamic_parameter_py" exec="number_generator">
+      <!-- NOTE: Specifying the type in launch will promote integer to floats for the parameter
+                 automatically. This makes this node also 'lenient' over the number types. -->
+      <param name="frequency" type="float" value="$(var frequency)" />
+      <param name="number" type="float" value="$(var initial_number)" />
+      <param name="increment" type="float" value="$(var number_increment)" />
+    </node>
+  </group>
+
+  <node pkg="dynamic_parameter_py" exec="lenient_multiplier">
+    <param name="is_lenient" value="$(equals $(var mode) 'lenient')" />
+  </node>
+
+  <log
+    message="The lenient_multiplier node has been started, publish a number to multiply on /number"
+    unless="$(var start_number_generator)" />
+</launch>

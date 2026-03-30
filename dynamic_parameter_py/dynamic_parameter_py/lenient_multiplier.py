@@ -48,6 +48,7 @@ class LenientMultiplier(Node):
         else:
             self.get_logger().warning("The 'multiplier' parameter is statically typed!")
 
+        # Add a post set callback so changes can be logged easily
         self.add_post_set_parameters_callback(self._post_set_parameters_callback)
 
         self.declare_parameter('multiplier', value=1.0, descriptor=ParameterDescriptor(

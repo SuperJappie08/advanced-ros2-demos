@@ -83,6 +83,12 @@ repos:
         entry: ament_cpplint
         types_or: [c, c++]
         language: system
+      - id: ament_uncrustify
+        name: ament_uncrustify
+        description: Check if all files adhere to ament_uncrustify
+        entry: ament_uncrustify
+        types_or: [c, c++]
+        language: system
       - id: ament_lint_cmake
         name: ament_lint_cmake
         description: Check if all files adhere to ament_lint_cmake
